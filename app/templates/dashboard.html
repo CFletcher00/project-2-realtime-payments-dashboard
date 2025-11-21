@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Time Payments Dashboard</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #box { border: 1px solid #ccc; padding: 20px; width: 450px; }
+    </style>
+</head>
+
+<body>
+    <h1>Real-Time Payments Dashboard</h1>
+
+    <div id="box">
+        <h3>Latest Transaction</h3>
+        <p><strong>ID:</strong> <span id="tx_id">---</span></p>
+        <p><strong>Customer:</strong> <span id="customer">---</span></p>
+        <p><strong>Amount:</strong> $<span id="amount">---</span></p>
+    </div>
+
+    <script>
+        const socket = io();
+
+        socket.on("new_transaction", function (data) {
+            document.getElementById("tx_id").textContent = data.transaction_id;
+            document.getElementById("customer").textContent = data.customer_id;
+            document.getElementById("amount").textContent = data.amount;
+        });
+    </script>
+</body>
+</html>
+
